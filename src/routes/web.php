@@ -19,5 +19,8 @@ Route::get('/', function () {
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 
-Route::resource('books', BookController::class);
+// Route::resource('/books', BookController::class);
+Route::get('/books', [BookController::class, 'index']);
+// Route::get('/books', 'BookController@index');
+
 
