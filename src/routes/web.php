@@ -14,3 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookController;
+
+Route::resource('books', BookController::class);
+
