@@ -9,4 +9,11 @@ class Book extends Model
 {
     use HasFactory;
     protected $fillable = ['title', 'author'];
+    public function toCsv(): array
+    {
+        return [
+            'Title' => $this->title,
+            'Author' => $this->author,
+        ];
+    }
 }

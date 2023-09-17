@@ -34,11 +34,6 @@
         <button class="btn btn-outline-secondary" type="button">Search</button>
       </div>
     </div>
-
-
-    <!-- <input type="text" id="search" placeholder="Search for Title or Author"> -->
-
-
     <div class="mt-4">
         <table class="table table-bordered">
           <thead>
@@ -66,7 +61,10 @@
             </tbody>
         </table>
     </div>
+<a href="{{ route('export.csv') }}" class="btn btn-primary">Export as CSV</a>
+<a href="{{ route('export.xml') }}" class="btn btn-primary">Export as XML</a>
 </div>
-<script src="{{ asset('script.js') }}"></script>
+<script src="{{ asset('script.js') }}">
+</script>
 </body>
 </html>

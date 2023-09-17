@@ -61,3 +61,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     searchInput.addEventListener('input', filterTable);
 });
+
+
+function exportTasks(_this) {
+    let _url = _this.getAttribute('data-href');
+    window.location.href = _url;
+}
