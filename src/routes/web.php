@@ -19,3 +19,4 @@ Route::get('/', function () {
 
 Route::get('/add-book-form', [BookController::class, 'index'])->name('add-book-form');
 Route::post('/store-book', [BookController::class, 'store'])->name('store-book');
+Route::delete('/books/{book}', 'BookController@delete')->name('books.delete');

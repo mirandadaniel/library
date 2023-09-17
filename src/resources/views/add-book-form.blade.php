@@ -7,11 +7,11 @@
 </head>
 <body>
   <div class="container mt-4">
-    @if(session('status'))
+    <!-- @if(session('status'))
     <div class="alert alert-success">
         {{ session('status') }}
     </div>
-    @endif
+    @endif -->
     <div class="card">
       <div class="card-header text-center font-weight-bold">
         Add Book
@@ -47,13 +47,11 @@
             <td>{{ $book->title }}</td>
             <td>{{ $book->author }}</td>
             <td>
-            <!-- <form method="post" action="delete.php">
-
-              <input type="text" placeholder="Enter the book ID to delete" name="getdeleteid">
-
-              <button type="submit" value="Delete book">
-
-              </form> -->
+            <form method="POST" action="{{ route('books.delete', $book->id) }}">
+              @csrf 
+              @method('DELETE')
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
             </td>
           </tr>
           @endforeach
