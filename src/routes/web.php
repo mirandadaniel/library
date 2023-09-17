@@ -1,4 +1,6 @@
 <?php
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,12 +17,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BookController;
-
-// Route::resource('/books', BookController::class);
-Route::get('/books', [BookController::class, 'index']);
-// Route::get('/books', 'BookController@index');
-
-
+Route::get('/add-book-form', [BookController::class, 'index'])->name('add-book-form');
+Route::post('/store-book', [BookController::class, 'store'])->name('store-book');

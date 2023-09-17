@@ -15,9 +15,20 @@ class CreateBooksTable extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->text('author');
             $table->timestamps();
         });
     }
+    // public function up()
+    // {
+    //     Schema::create('books', function (Blueprint $table) {
+    //         $table->id();
+    //         $table->string('title');
+    //         $table->string('author')
+    //         // $table->timestamps();
+    //     });
+    // }
 
     /**
      * Reverse the migrations.
