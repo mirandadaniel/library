@@ -37,3 +37,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
     sortTable(headers[0]);
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const table = document.querySelector('.table');
+    const headers = table.querySelectorAll('th[data-column]');
+    const rows = Array.from(table.querySelectorAll('tbody tr'));
+    const searchInput = document.getElementById('search');
+
+    function filterTable() {
+        const searchText = searchInput.value.toLowerCase();
+
+        rows.forEach(row => {
+            const title = row.cells[0].textContent.toLowerCase();
+            const author = row.cells[1].textContent.toLowerCase();
+
+            if (title.includes(searchText) || author.includes(searchText)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+
+    searchInput.addEventListener('input', filterTable);
+});

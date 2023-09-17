@@ -28,6 +28,17 @@
         </div>
     </div>
 
+    <div class="input-group mb-3" style="margin-top: 20px;">
+      <input type="text" id="search" class="form-control" placeholder="Search for Title or Author">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button">Search</button>
+      </div>
+    </div>
+
+
+    <!-- <input type="text" id="search" placeholder="Search for Title or Author"> -->
+
+
     <div class="mt-4">
         <table class="table table-bordered">
           <thead>
@@ -47,7 +58,7 @@
                         <form method="POST" action="{{ route('books.delete', $book->id) }}">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn"><img src="img/trash-solid.svg" alt="Image Alt Text" width="15" height="15" style="vertical-align: middle;"></button>
                         </form>
                     </td>
                 </tr>
