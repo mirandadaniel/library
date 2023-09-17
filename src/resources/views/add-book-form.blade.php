@@ -32,8 +32,8 @@
         <table class="table table-bordered">
           <thead>
           <tr>
-            <th data-column="title">Title</th>
-            <th data-column="author">Author</th>
+            <th data-column="title" style="vertical-align: middle;">Title <img src="img/sort-solid.svg" alt="Image Alt Text" width="15" height="15" style="vertical-align: middle;"></th>
+            <th data-column="author" style="vertical-align: middle;">Author <img src="img/sort-solid.svg" alt="Image Alt Text" width="15" height="15" style="vertical-align: middle;"></th>
             <th>Delete</th>
           </tr>
           </thead>
