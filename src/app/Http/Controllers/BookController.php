@@ -6,10 +6,13 @@ use App\Models\Book;
 
 class BookController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $books = Book::all();
-        return view('add-book-form', ['books' => $books]);
+        $sortDirection = $request->input('sort', 'asc');
+        // $books = Book::all();
+        $books = Book::orderBy('author', $sortDirection)->get();
+        // return view('add-book-form', ['books' => $books]);
+        return view('add-book-form', ['books' => $books, 'sortDirection' => $sortDirection]);
        
     }
     public function store(Request $request)
