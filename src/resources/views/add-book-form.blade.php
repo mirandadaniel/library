@@ -4,7 +4,7 @@
     <title>Add Book</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="{{ asset('script.js') }}"></script>
+    
 </head>
 <body>
 <div class="container mt-4">
@@ -30,25 +30,14 @@
 
     <div class="mt-4">
         <table class="table table-bordered">
-            <thead>
-            <tr>
-              <th>
-                <label for="sort">Title:</label>
-                <select id="sort" name="sort" onchange="sortTable()">
-                  <option value="asc">A-Z</option>
-                  <option value="desc">Z-A</option>
-                  </select>
-                </th>
-                <th>
-                    <label for="sort">Author:</label>
-                    <select id="sort" name="sort" onchange="sortTable()">
-                        <option value="asc">A-Z</option>
-                        <option value="desc">Z-A</option>
-                    </select>
-                </th>
-                <th>Delete</th>
-            </tr>
-            </thead>
+          <thead>
+          <tr>
+            <th data-column="title">Title</th>
+            <th data-column="author">Author</th>
+            <th>Delete</th>
+          </tr>
+          </thead>
+        <tbody id="table-content"></tbody>
             <tbody>
             @foreach($books as $book)
                 <tr>
@@ -67,7 +56,6 @@
         </table>
     </div>
 </div>
-
-<script src="{{ asset('js/script.js') }}"></script>
+<script src="{{ asset('script.js') }}"></script>
 </body>
 </html>
