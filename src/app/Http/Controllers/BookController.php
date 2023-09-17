@@ -9,7 +9,7 @@ class BookController extends Controller
     public function index()
     {
         $books = Book::all();
-        return view('add-book-form');
+        return view('add-book-form', ['books' => $books]);
        
     }
     public function store(Request $request)
