@@ -12,7 +12,6 @@ class BookController extends Controller
         $sortDirection = $request->input('sort', 'asc');
         $books = Book::orderBy('author', $sortDirection)->get();
         return view('add-book-form', ['books' => $books, 'sortDirection' => $sortDirection]);
-       
     }
     public function store(Request $request)
     {
@@ -24,8 +23,6 @@ class BookController extends Controller
     }
     public function destroy($id)
     {
-        // $book = Book::findOrFail($id);
-        // $book->destroy();
         Book::destroy($id);
         return redirect()->route('add-book-form')->with('success', 'Book deleted successfully!');
     }
