@@ -22,10 +22,11 @@ class BookController extends Controller
         $post->save();
         return redirect()->route('add-book-form')->with('status', 'Book Data Has Been inserted');
     }
-    public function delete($id)
+    public function destroy($id)
     {
-        $book = Book::findOrFail($id);
-        $book->delete();
+        // $book = Book::findOrFail($id);
+        // $book->destroy();
+        Book::destroy($id);
         return redirect()->route('add-book-form')->with('success', 'Book deleted successfully!');
     }
     public function exportData()

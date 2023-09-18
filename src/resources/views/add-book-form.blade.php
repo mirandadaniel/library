@@ -3,8 +3,7 @@
 <head>
     <title>Add Book</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">  
 </head>
 <body>
 <div class="container mt-4">
@@ -50,7 +49,7 @@
                     <td>{{ $book->title }}</td>
                     <td>{{ $book->author }}</td>
                     <td>
-                        <form method="POST" action="{{ route('books.delete', $book->id) }}">
+                        <form method="POST" action="{{ route('books.destroy', ['book' => $book->id]) }}">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn"><img src="img/trash-solid.svg" alt="Image Alt Text" width="15" height="15" style="vertical-align: middle;"></button>
