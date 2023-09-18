@@ -3,6 +3,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\ExportController;
 
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,7 +20,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/add-book-form', [BookController::class, 'index'])->name('add-book-form');
+
+// Route::get('/', 'BookController@addBookForm');
+Route::get('/', [BookController::class, 'index'])->name('add-book-form');
+
+// Route::get('/', [BookController::class, 'addBookForm'])->name('home'); // Set the default content to the addBookForm method
+// Route::get('/add-book-form', [BookController::class, 'index'])->name('add-book-form');
+
+
+// Route::get('/add-book-form', [BookController::class, 'index'])->name('add-book-form');
 Route::post('/store-book', [BookController::class, 'store'])->name('store-book');
 Route::delete('/books/{book}', 'BookController@delete')->name('books.delete');
 Route::get('/export-csv', [ExportController::class, 'exportCsv'])->name('export.csv');

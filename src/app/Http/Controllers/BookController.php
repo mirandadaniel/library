@@ -20,7 +20,7 @@ class BookController extends Controller
         $post->title = $request->title;
         $post->author = $request->author;
         $post->save();
-        return redirect('add-book-form')->with('status', 'Book Data Has Been inserted');
+        return redirect()->route('add-book-form')->with('status', 'Book Data Has Been inserted');
     }
     public function delete($id)
     {
