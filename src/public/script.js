@@ -11,25 +11,40 @@ document.addEventListener('DOMContentLoaded', function () {
     const headers = table.querySelectorAll('th[data-column]');
     const rows = Array.from(table.querySelectorAll('tbody tr'));
 
-    let currentSortColumn = null;
     let currentSortDirection = 'asc';
 
-    function sortTable(column) {
-    }
+    function sortTable(columnName) {
+        currentSortDirection = currentSortDirection === 'asc' ? 'desc' : 'asc';
+        rows.sort((a, b) => {
+            const aValue = a.querySelector(`[data-field="${columnName}"]`).textContent;
+            const bValue = b.querySelector(`[data-field="${columnName}"]`).textContent;
 
-    function filterTable() {
+            if (currentSortDirection === 'asc') {
+                return aValue.localeCompare(bValue);
+            } else {
+                return bValue.localeCompare(aValue);
+            }
+        });
+
+        headers.forEach(header => {
+            header.classList.remove('sorted-asc', 'sorted-desc');
+        });
+
+        const column = table.querySelector(`th[data-column="${columnName}"]`);
+        column.classList.add(`sorted-${currentSortDirection}`);
+
+        const tbody = table.querySelector('tbody');
+        rows.forEach(row => {
+            tbody.appendChild(row);
+        });
     }
 
     headers.forEach(header => {
         header.addEventListener('click', () => {
-            sortTable(header);
+            const columnName = header.getAttribute('data-column');
+            sortTable(columnName);
         });
     });
-
-    sortTable(headers[0]);
-
-    const searchInput = document.getElementById('search');
-    searchInput.addEventListener('input', filterTable);
 });
 
 function exportTasks(_this) {

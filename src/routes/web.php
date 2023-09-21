@@ -14,3 +14,6 @@ Route::put('/books/{id}', 'BookController@update');
 Route::get('/books/{book}/edit', 'BookController@edit')->name('books.edit');
 Route::put('/books/{book}', 'BookController@update')->name('books.update');
 Route::get('/get-updated-data', 'BookController@getUpdatedData');
+
+Route::get('/export-titles', [ExportController::class, 'exportTitles'])->name('export.titles');
+Route::get('/export-authors', [ExportController::class, 'exportAuthors'])->name('export.authors');

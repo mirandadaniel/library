@@ -5,6 +5,10 @@ use Illuminate\Http\Request;
 use App\Models\Book;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Log;
+use App\Exports\BooksExport;
+
+use App\Exports\AuthorsExport;
+use App\Exports\TitlesExport;
 
 class BookController extends Controller
 {
@@ -49,10 +53,5 @@ class BookController extends Controller
         Book::destroy($id);
         return redirect()->route('add-book-form')->with('success', 'Book deleted successfully!');
     }
-    public function exportData()
-    {
-        return Excel::download(new BookCsvExport, 'data.csv');
-    }
-
 }
 

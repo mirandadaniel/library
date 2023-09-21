@@ -72,4 +72,44 @@ class ExportController extends Controller
 
         return Response::make($xml->outputMemory(), 200, $headers);
     }
+
+    public function exportTitles()
+    {
+        $titles = Book::pluck('title')->toArray();
+
+        $filename = 'titles.csv';
+
+        return Response::stream(function () use ($titles) {
+            $handle = fopen('php://output', 'w');
+            fputcsv($handle, ['Title']);
+            foreach ($titles as $title) {
+                fputcsv($handle, [$title]);
+            }
+            fclose($handle);
+        }, 200, [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => "attachment; filename=\"$filename\"",
+        ]);
+    }
+
+    public function exportAuthors()
+    {
+        $authors = Book::pluck('author')->toArray();
+
+        $filename = 'authors.csv';
+
+        return Response::stream(function () use ($authors) {
+            $handle = fopen('php://output', 'w');
+            fputcsv($handle, ['Author']);
+            foreach ($authors as $author) {
+                fputcsv($handle, [$author]);
+            }
+            fclose($handle);
+        }, 200, [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => "attachment; filename=\"$filename\"",
+        ]);
+    }
+
+    
 }
