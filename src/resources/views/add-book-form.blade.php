@@ -43,27 +43,41 @@
           </tr>
           </thead>
         <tbody id="table-content"></tbody>
-            <tbody>
-            @foreach($books as $book)
-                <tr>
-                    <td>{{ $book->title }}</td>
-                    <td>{{ $book->author }}</td>
-                    <td>
-                        <form method="POST" action="{{ route('books.destroy', ['book' => $book->id]) }}">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn"><img src="img/trash-solid.svg" alt="Image Alt Text" width="15" height="15" style="vertical-align: middle;"></button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-            </tbody>
+        <tbody>
+        @foreach($books as $book)
+            <tr>
+                <td>
+                    <div class="editable-cell" data-field="title" data-id="{{ $book->id }}">{{ $book->title }}</div>
+                </td>
+                <td>
+                    <div class="editable-cell" data-field="author" data-id="{{ $book->id }}">{{ $book->author }}</div>
+                </td>
+                <td>
+                    <form method="POST" action="{{ route('books.destroy', ['book' => $book->id]) }}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn"><img src="img/trash-solid.svg" alt="Image Alt Text" width="15" height="15" style="vertical-align: middle;"></button>
+                    </form>
+                </td>
+            </tr>
+        @endforeach
+        </tbody>
         </table>
     </div>
 <a href="{{ route('export.csv') }}" class="btn btn-primary">Export as CSV</a>
 <a href="{{ route('export.xml') }}" class="btn btn-primary">Export as XML</a>
 </div>
-<script src="{{ asset('script.js') }}">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="script.js">
+</script>
+<script>
+    function addHoverClass(element) {
+        element.classList.add('editable-cell-hover');
+    }
+
+    function removeHoverClass(element) {
+        element.classList.remove('editable-cell-hover');
+    }
 </script>
 </body>
 </html>

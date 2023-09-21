@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Log;
 
 class BookController extends Controller
 {
@@ -21,6 +22,28 @@ class BookController extends Controller
         $post->save();
         return redirect()->route('add-book-form')->with('status', 'Book Data Has Been inserted');
     }
+    public function edit(Book $book)
+    {
+        return view('edit', compact('book'));
+    }
+
+
+    public function update(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'field' => 'required|in:title,author',
+            'value' => 'required|string|max:255',
+            'bookId' => 'required|exists:books,id',
+        ]);
+
+        $book = Book::findOrFail($validatedData['bookId']);
+
+        $book->{$validatedData['field']} = $validatedData['value'];
+        $book->save();
+
+        return response()->json(['message' => 'Book updated successfully']);
+    }
+
     public function destroy($id)
     {
         Book::destroy($id);
@@ -30,5 +53,6 @@ class BookController extends Controller
     {
         return Excel::download(new BookCsvExport, 'data.csv');
     }
+
 }
 

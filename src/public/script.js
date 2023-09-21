@@ -1,3 +1,11 @@
+const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': csrfToken
+    }
+});
+
 document.addEventListener('DOMContentLoaded', function () {
     const table = document.querySelector('.table');
     const headers = table.querySelectorAll('th[data-column]');
@@ -7,26 +15,9 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentSortDirection = 'asc';
 
     function sortTable(column) {
-        const columnIndex = Array.from(headers).indexOf(column);
-        const columnName = column.getAttribute('data-column');
+    }
 
-        rows.sort((a, b) => {
-            const cellA = a.cells[columnIndex].textContent.toLowerCase();
-            const cellB = b.cells[columnIndex].textContent.toLowerCase();
-
-            if (currentSortDirection === 'asc') {
-                return cellA.localeCompare(cellB);
-            } else {
-                return cellB.localeCompare(cellA);
-            }
-        });
-
-        rows.forEach(row => {
-            table.tBodies[0].appendChild(row);
-        });
-
-        currentSortColumn = columnName;
-        currentSortDirection = currentSortDirection === 'asc' ? 'desc' : 'asc';
+    function filterTable() {
     }
 
     headers.forEach(header => {
@@ -36,34 +27,51 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     sortTable(headers[0]);
-});
 
-document.addEventListener('DOMContentLoaded', function () {
-    const table = document.querySelector('.table');
-    const headers = table.querySelectorAll('th[data-column]');
-    const rows = Array.from(table.querySelectorAll('tbody tr'));
     const searchInput = document.getElementById('search');
-
-    function filterTable() {
-        const searchText = searchInput.value.toLowerCase();
-
-        rows.forEach(row => {
-            const title = row.cells[0].textContent.toLowerCase();
-            const author = row.cells[1].textContent.toLowerCase();
-
-            if (title.includes(searchText) || author.includes(searchText)) {
-                row.style.display = '';
-            } else {
-                row.style.display = 'none';
-            }
-        });
-    }
-
     searchInput.addEventListener('input', filterTable);
 });
 
-
 function exportTasks(_this) {
-    let _url = _this.getAttribute('data-href');
-    window.location.href = _url;
 }
+
+function updateBookField(bookId, field, newValue, title) {
+    console.log("hiiii im inside update book field: ", bookId, field, newValue)
+    console.log('Request URL:', `/books/${bookId}`);
+    console.log('hey??????')
+    $.ajax({
+        method: 'PUT',
+        url: `/books/${bookId}`,
+        data: {
+            bookId: bookId,
+            field: field,
+            value: newValue,
+            title: field === 'title' ? newValue : '',  
+            author: field === 'author' ? newValue : '',
+            _token: csrfToken,
+        },
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function (response) {
+            console.log('Updated successfully:', response, title);
+            const cellSelector = `.editable-cell[data-id="${bookId}"][data-field="${field}"]`;
+            const cell = $(cellSelector);
+            cell.text(newValue);
+        },
+        error: function (error) {
+            console.error('Update failed:', error, "title is ", error.responseJSON.title, "author is ", error.responseJSON.author);
+        },
+    });
+}
+
+$('.editable-cell').click(function () {
+    const cell = $(this);
+    const bookId = cell.data('id');
+    const field = cell.data('field');
+    const currentValue = cell.text();
+    const newValue = prompt(`Edit ${field}:`, currentValue);
+    if (newValue !== null && newValue !== currentValue) {
+        updateBookField(bookId, field, newValue);
+    }
+});
