@@ -9,107 +9,84 @@ use Illuminate\Support\Facades\Storage;
 
 class ExportController extends Controller
 {
-    public function exportCsv()
+    public function exportData(Request $request)
     {
-        $books = Book::all(); 
-        $data = [
-            ['Title', 'Author'],
-        ];
+        $format = $request->input('format', 'csv');
+        $titles = $request->input('titles', false); 
+        $authors = $request->input('authors', false); 
 
-        foreach ($books as $book) {
-            $data[] = [$book->title, $book->author];
+        $sortedBooks = Book::orderBy('column_name', 'asc')->get();
+
+        if ($format === 'csv') {
+            $filename = 'books.csv';
+            return $this->exportCSV($sortedBooks, $filename, $titles, $authors);
+        } elseif ($format === 'xml') {
+            $filename = 'books.xml';
+            return $this->exportXML($sortedBooks, $filename, $titles, $authors);
+        } else {
+        }
+    }
+
+    public function exportCSV($books, $filename, $includeTitles, $includeAuthors)
+    {
+        $data = [];
+
+        if ($includeTitles) {
+            $data[] = ['Title'];
+            foreach ($books as $book) {
+                $data[] = [$book->title];
+            }
         }
 
-        $csvFileName = 'books.csv';
+        if ($includeAuthors) {
+            $data[] = ['Author'];
+            foreach ($books as $book) {
+                $data[] = [$book->author];
+            }
+        }
+
         $csvFileContents = implode(PHP_EOL, array_map(function ($row) {
             return implode(',', $row);
         }, $data));
 
         $headers = [
             'Content-Type' => 'text/csv',
-            'Content-Disposition' => 'attachment; filename="' . $csvFileName . '"',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
         ];
 
         return Response::make($csvFileContents, 200, $headers);
     }
 
-    public function exportXml()
+    public function exportXML($books, $filename, $includeTitles, $includeAuthors)
     {
-        $books = Book::all();
-        $data = [];
+        $xml = new \DOMDocument();
+        $xml->formatOutput = true;
+
+        $root = $xml->createElement('Books');
+        $xml->appendChild($root);
 
         foreach ($books as $book) {
-            $data[] = [
-                'Title' => $book->title,
-                'Author' => $book->author,
-            ];
-        }
+            $bookElement = $xml->createElement('Book');
+            $root->appendChild($bookElement);
 
-
-        $xmlFileName = 'books.xml';
-
-        $xml = new \XMLWriter();
-        $xml->openMemory();
-        $xml->setIndent(true);
-        $xml->startDocument('1.0', 'UTF-8');
-        $xml->startElement('books');
-
-        foreach ($data as $row) {
-            $xml->startElement('book');
-            foreach ($row as $key => $value) {
-                $xml->writeElement($key, $value);
+            if ($includeTitles) {
+                $titleElement = $xml->createElement('Title', $book->title);
+                $bookElement->appendChild($titleElement);
             }
-            $xml->endElement();
+
+            if ($includeAuthors) {
+                $authorElement = $xml->createElement('Author', $book->author);
+                $bookElement->appendChild($authorElement);
+            }
         }
 
-        $xml->endElement();
-        $xml->endDocument();
+        $xml->save($filename);
 
         $headers = [
             'Content-Type' => 'application/xml',
-            'Content-Disposition' => 'attachment; filename="' . $xmlFileName . '"',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
         ];
 
-        return Response::make($xml->outputMemory(), 200, $headers);
+        return Response::file($filename, $headers);
     }
-
-    public function exportTitles()
-    {
-        $titles = Book::pluck('title')->toArray();
-
-        $filename = 'titles.csv';
-
-        return Response::stream(function () use ($titles) {
-            $handle = fopen('php://output', 'w');
-            fputcsv($handle, ['Title']);
-            foreach ($titles as $title) {
-                fputcsv($handle, [$title]);
-            }
-            fclose($handle);
-        }, 200, [
-            'Content-Type' => 'text/csv',
-            'Content-Disposition' => "attachment; filename=\"$filename\"",
-        ]);
-    }
-
-    public function exportAuthors()
-    {
-        $authors = Book::pluck('author')->toArray();
-
-        $filename = 'authors.csv';
-
-        return Response::stream(function () use ($authors) {
-            $handle = fopen('php://output', 'w');
-            fputcsv($handle, ['Author']);
-            foreach ($authors as $author) {
-                fputcsv($handle, [$author]);
-            }
-            fclose($handle);
-        }, 200, [
-            'Content-Type' => 'text/csv',
-            'Content-Disposition' => "attachment; filename=\"$filename\"",
-        ]);
-    }
-
-    
 }

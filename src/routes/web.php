@@ -17,3 +17,4 @@ Route::get('/get-updated-data', 'BookController@getUpdatedData');
 
 Route::get('/export-titles', [ExportController::class, 'exportTitles'])->name('export.titles');
 Route::get('/export-authors', [ExportController::class, 'exportAuthors'])->name('export.authors');
+Route::get('/export-data', [ExportController::class, 'exportData'])->name('export.data');

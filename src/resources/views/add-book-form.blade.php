@@ -69,9 +69,19 @@
         Export as CSV
     </button>
     <div class="dropdown-menu" aria-labelledby="exportDropdown">
-        <a class="dropdown-item" href="{{ route('export.titles') }}">Download Titles</a>
-        <a class="dropdown-item" href="{{ route('export.authors') }}">Download Authors</a>
-        <a class="dropdown-item" href="{{ route('export.csv') }}">Download Titles and Authors</a>
+        <a href="{{ route('export.data', ['format' => 'csv', 'titles' => true, 'authors' => true]) }}" class="btn btn-primary">Export Titles and Authors as CSV</a>
+        <a href="{{ route('export.data', ['format' => 'csv', 'titles' => true, 'authors' => false]) }}" class="btn btn-primary">Export Titles as CSV</a>
+        <a href="{{ route('export.data', ['format' => 'csv', 'titles' => false, 'authors' => true]) }}" class="btn btn-primary">Export Authors as CSV</a>
+    </div>
+</div>
+<div class="dropdown">
+<button class="btn btn-primary dropdown-toggle" type="button" id="exportDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Export as XML
+    </button>
+    <div class="dropdown-menu" aria-labelledby="exportDropdown">
+    <a href="{{ route('export.data', ['format' => 'xml', 'titles' => true, 'authors' => true]) }}" class="btn btn-primary">Export Titles and Authors as XML</a>
+    <a href="{{ route('export.data', ['format' => 'xml', 'titles' => true, 'authors' => false]) }}" class="btn btn-primary">Export Titles as XML</a>
+    <a href="{{ route('export.data', ['format' => 'xml', 'titles' => false, 'authors' => true]) }}" class="btn btn-primary">Export Authors as XML</a>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
