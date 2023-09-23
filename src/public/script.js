@@ -90,3 +90,36 @@ $('.editable-cell').click(function () {
         updateBookField(bookId, field, newValue);
     }
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const searchInput = document.getElementById('search');
+    const table = document.querySelector('.table');
+    const rows = Array.from(table.querySelectorAll('tbody tr'));
+
+    searchInput.addEventListener('input', function () {
+        console.log("in search")
+        const searchTerm = searchInput.value.toLowerCase();
+        console.log("search term is: ", searchTerm)
+
+        rows.forEach((row) => {
+            const titleElement = row.querySelector('[data-field="title"]');
+            const authorElement = row.querySelector('[data-field="author"]');
+            const title = titleElement.textContent.toLowerCase();
+            const author = authorElement.textContent.toLowerCase();
+
+            if (titleElement && authorElement) {
+                const title = titleElement.textContent.toLowerCase();
+                const author = authorElement.textContent.toLowerCase();
+                console.log("title is: , author is: , search term is: ", title, author, searchTerm)
+
+                if (title.includes(searchTerm) || author.includes(searchTerm)) {
+                    row.style.display = '';
+                    console.log("match found!")
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+        });
+    });
+});
+
