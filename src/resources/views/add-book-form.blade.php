@@ -29,9 +29,6 @@
 
     <div class="input-group mb-3" style="margin-top: 20px;">
       <input type="text" id="search" class="form-control" placeholder="Search for Title or Author...">
-      <!-- <div class="input-group-append">
-        <button class="btn btn-outline-secondary" type="button">Search</button>
-      </div> -->
     </div>
     <div class="mt-4">
         <table class="table table-bordered">
@@ -70,9 +67,9 @@
             Export as CSV
         </button>
         <div class="dropdown-menu" aria-labelledby="exportDropdown">
-            <a href="{{ route('export.data', ['format' => 'csv', 'titles' => true, 'authors' => true]) }}" class="btn btn-primary">Export Titles and Authors as CSV</a>
-            <a href="{{ route('export.data', ['format' => 'csv', 'titles' => true, 'authors' => false]) }}" class="btn btn-primary">Export Titles as CSV</a>
-            <a href="{{ route('export.data', ['format' => 'csv', 'titles' => false, 'authors' => true]) }}" class="btn btn-primary">Export Authors as CSV</a>
+            <a class="dropdown-item" href="{{ route('export.data', ['format' => 'csv', 'titles' => true, 'authors' => true]) }}" class="btn btn-primary">Export Titles and Authors as CSV</a>
+            <a class="dropdown-item" href="{{ route('export.data', ['format' => 'csv', 'titles' => true, 'authors' => false]) }}" class="btn btn-primary">Export Titles as CSV</a>
+            <a class="dropdown-item" href="{{ route('export.data', ['format' => 'csv', 'titles' => false, 'authors' => true]) }}" class="btn btn-primary">Export Authors as CSV</a>
         </div>
     </div>
     <div class="dropdown">
@@ -80,9 +77,9 @@
             Export as XML
         </button>
         <div class="dropdown-menu" aria-labelledby="exportDropdown">
-        <a href="{{ route('export.data', ['format' => 'xml', 'titles' => true, 'authors' => true]) }}" class="btn btn-primary">Export Titles and Authors as XML</a>
-        <a href="{{ route('export.data', ['format' => 'xml', 'titles' => true, 'authors' => false]) }}" class="btn btn-primary">Export Titles as XML</a>
-        <a href="{{ route('export.data', ['format' => 'xml', 'titles' => false, 'authors' => true]) }}" class="btn btn-primary">Export Authors as XML</a>
+        <a class="dropdown-item" href="{{ route('export.data', ['format' => 'xml', 'titles' => true, 'authors' => true]) }}" class="btn btn-primary">Export Titles and Authors as XML</a>
+        <a class="dropdown-item" href="{{ route('export.data', ['format' => 'xml', 'titles' => true, 'authors' => false]) }}" class="btn btn-primary">Export Titles as XML</a>
+        <a class="dropdown-item" href="{{ route('export.data', ['format' => 'xml', 'titles' => false, 'authors' => true]) }}" class="btn btn-primary">Export Authors as XML</a>
         </div>
     </div>
 </div>
