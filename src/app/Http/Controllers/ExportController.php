@@ -31,14 +31,17 @@ class ExportController extends Controller
     {
         $data = [];
 
-        if ($includeTitles) {
+        if ($includeTitles && $includeAuthors) {
+            $data[] = ['Title', 'Author'];
+            foreach ($books as $book) {
+                $data[] = [$book->title, $book->author];
+            }
+        } elseif ($includeTitles) {
             $data[] = ['Title'];
             foreach ($books as $book) {
                 $data[] = [$book->title];
             }
-        }
-
-        if ($includeAuthors) {
+        } elseif ($includeAuthors) {
             $data[] = ['Author'];
             foreach ($books as $book) {
                 $data[] = [$book->author];
