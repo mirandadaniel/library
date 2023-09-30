@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Book;
+use App\Models\Book;
 
 class BooksTableSeeder extends Seeder
 {

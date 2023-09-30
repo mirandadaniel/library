@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<Books>
+  <Book>
+    <Title>Book 1 Title</Title>
+    <Author>Author 1</Author>
+  </Book>
+  <Book>
+    <Title>Book 2 Title</Title>
+    <Author>Author 2</Author>
+  </Book>
+</Books>

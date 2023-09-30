@@ -18,6 +18,8 @@ class BookController extends Controller
         $books = Book::orderBy('author', $sortDirection)->get();
         return view('add-book-form', ['books' => $books, 'sortDirection' => $sortDirection]);
     }
+
+    
     public function store(Request $request)
     {
         $post = new Book;
@@ -30,7 +32,6 @@ class BookController extends Controller
     {
         return view('edit', compact('book'));
     }
-
 
     public function update(Request $request, $id)
     {

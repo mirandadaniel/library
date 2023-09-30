@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let currentSortDirection = 'asc';
 
+    
     function sortTable(columnName) {
         currentSortDirection = currentSortDirection === 'asc' ? 'desc' : 'asc';
         rows.sort((a, b) => {
