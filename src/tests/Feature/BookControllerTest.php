@@ -126,34 +126,4 @@ class BookControllerTest extends TestCase
         $response->assertRedirect(route('add-book-form')); 
         $this->assertDatabaseMissing('books', ['id' => $book->id]); 
     }
-
-    // public function testExportXmlAction()
-    // {
-    //     Book::create([
-    //         'title' => 'Book 1 Title',
-    //         'author' => 'Author 1',
-    //     ]);
-
-    //     Book::create([
-    //         'title' => 'Book 2 Title',
-    //         'author' => 'Author 2',
-    //     ]);
-
-    //     $books = Book::all();
-    //     dump($books);
-
-    //     $response = $this->get(route('export.data', [
-    //         'format' => 'xml',
-    //         'titles' => true,
-    //         'authors' => true,
-    //     ]));
-
-    //     $response->assertStatus(200);
-    //     $xmlContent = $response->getContent();
-    //     $xml = simplexml_load_string($xmlContent);
-    //     $this->assertNotEmpty($xml);
-    //     $this->assertCount(2, $xml->book); 
-    //     $this->assertEquals('Book 1 Title', (string) $xml->book[0]->title);
-    //     $this->assertEquals('Author 1', (string) $xml->book[0]->author);
-    // }
 } 

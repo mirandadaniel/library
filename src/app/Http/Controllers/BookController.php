@@ -49,26 +49,10 @@ class BookController extends Controller
 
             return response()->json(['message' => 'Book updated successfully']);
         } else {
-            return response()->json(['message' => 'Value cannot be blank'], 422); // Return a validation error response
+            return response()->json(['message' => 'Value cannot be blank'], 422);
         }
     }
-
-    // public function update(Request $request, $id)
-    // {
-    //     $validatedData = $request->validate([
-    //         'field' => 'required|in:title,author',
-    //         'value' => 'required|string|max:255',
-    //         'bookId' => 'required|exists:books,id',
-    //     ]);
-
-    //     $book = Book::findOrFail($validatedData['bookId']);
-
-    //     $book->{$validatedData['field']} = $validatedData['value'];
-    //     $book->save();
-
-    //     return response()->json(['message' => 'Book updated successfully']);
-    // }
-
+    
     public function destroy($id)
     {
         Book::destroy($id);

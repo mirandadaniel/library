@@ -99,18 +99,6 @@ $('.editable-cell').click(function () {
     }
 });
 
-
-// $('.editable-cell').click(function () {
-//     const cell = $(this);
-//     const bookId = cell.data('id');
-//     const field = cell.data('field');
-//     const currentValue = cell.text();
-//     const newValue = prompt(`Edit ${field}:`, currentValue);
-//     if (newValue !== null && newValue !== currentValue) {
-//         updateBookField(bookId, field, newValue);
-//     }
-// });
-
 document.addEventListener('DOMContentLoaded', function () {
     const searchInput = document.getElementById('search');
     const table = document.querySelector('.table');
