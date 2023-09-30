@@ -68,11 +68,39 @@
             Export as CSV
         </button>
         <div class="dropdown-menu" aria-labelledby="exportDropdown">
+            <!-- <a class="dropdown-item" href="{{ route('generate-file', ['format' => 'csv', 'titles' => true, 'authors' => true]) }}" class="btn btn-primary">Export Titles and Authors as CSV</a>
+            <a class="dropdown-item" href="{{ route('generate-file', ['format' => 'csv', 'titles' => true, 'authors' => false]) }}" class="btn btn-primary">Export Titles as CSV</a>
+            <a class="dropdown-item" href="{{ route('generate-file', ['format' => 'csv', 'titles' => false, 'authors' => true]) }}" class="btn btn-primary">Export Authors as CSV</a> -->
+
+        <a class="dropdown-item" href="{{ route('export.data', ['format' => 'csv', 'titles' => true, 'authors' => true]) }}" class="btn btn-primary">Export Titles and Authors as CSV</a>
+        <a class="dropdown-item" href="{{ route('export.data', ['format' => 'csv', 'titles' => true, 'authors' => false]) }}" class="btn btn-primary">Export Titles as CSV</a>
+        <a class="dropdown-item" href="{{ route('export.data', ['format' => 'csv', 'titles' => false, 'authors' => true]) }}" class="btn btn-primary">Export Authors as CSV</a>
+        <!-- <a href="{{ route('download', ['fileName' => 'example.csv']) }}" class="dropdown-item">Download CSV</a> -->
+        </div>
+    </div> 
+
+    <!-- <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="exportDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Export Data
+        </button>
+        <div class="dropdown-menu" aria-labelledby="exportDropdown">
+            <a class="dropdown-item" href="{{ route('export.data', ['format' => 'xml', 'titles' => true, 'authors' => true]) }}">Export Titles and Authors as XML</a>
+            <a class="dropdown-item" href="{{ route('export.data', ['format' => 'xml', 'titles' => true, 'authors' => false]) }}">Export Titles as XML</a>
+            <a class="dropdown-item" href="{{ route('export.data', ['format' => 'xml', 'titles' => false, 'authors' => true]) }}">Export Authors as XML</a>
+            <a class="dropdown-item" href="{{ route('download', ['fileName' => 'example.csv']) }}">Download CSV</a> 
+        </div>
+    </div> -->
+
+    <!-- <div class="dropdown" style="margin-right: 10px;">
+    <button class="btn btn-primary dropdown-toggle" type="button" id="exportDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Export as CSV
+        </button>
+        <div class="dropdown-menu" aria-labelledby="exportDropdown">
             <a class="dropdown-item" href="{{ route('export.data', ['format' => 'csv', 'titles' => true, 'authors' => true]) }}" class="btn btn-primary">Export Titles and Authors as CSV</a>
             <a class="dropdown-item" href="{{ route('export.data', ['format' => 'csv', 'titles' => true, 'authors' => false]) }}" class="btn btn-primary">Export Titles as CSV</a>
             <a class="dropdown-item" href="{{ route('export.data', ['format' => 'csv', 'titles' => false, 'authors' => true]) }}" class="btn btn-primary">Export Authors as CSV</a>
         </div>
-    </div>
+    </div> -->
     <div class="dropdown">
     <button class="btn btn-primary dropdown-toggle" type="button" id="exportDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Export as XML

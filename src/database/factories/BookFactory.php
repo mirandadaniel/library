@@ -10,11 +10,11 @@ class BookFactory extends Factory
     protected $model = Book::class;
     public function definition()
     {
-        $titleWords = $this->faker->words(rand(3, 6)); // Generate an array of random words for the title
-        $title = implode(' ', $titleWords); // Join the words into a sentence-like format
+        $titleWords = $this->faker->words(rand(3, 6)); 
+        $title = implode(' ', $titleWords); 
 
         return [
-            'title' => ucfirst($title), // Capitalize the first word
+            'title' => ucfirst($title), 
             'author' => $this->faker->name,
         ];
     }
