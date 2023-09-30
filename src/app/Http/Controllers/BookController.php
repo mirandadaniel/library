@@ -59,4 +59,3 @@ class BookController extends Controller
         return redirect()->route('add-book-form')->with('success', 'Book deleted successfully!');
     }
 }
-

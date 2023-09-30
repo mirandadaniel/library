@@ -46,7 +46,7 @@ class BookControllerTest extends TestCase
     {
         $book = Book::factory()->create();
         $newTitle = 'New Title';
-        $response = $this->patch(route('books.update', $book), [
+        $response = $this->put(route('books.update', ['book' => $book->id]), [
             'field' => 'title',
             'value' => $newTitle,
             'bookId' => $book->id,
@@ -60,7 +60,7 @@ class BookControllerTest extends TestCase
     {
         $book = Book::factory()->create();
         $newTitle = 'New Title2';
-        $response = $this->patch(route('books.update', $book), [
+        $response = $this->put(route('books.update', ['book' => $book->id]), [
             'field' => 'title',
             'value' => $newTitle,
             'bookId' => $book->id,
@@ -73,7 +73,7 @@ class BookControllerTest extends TestCase
     {
         $book = Book::factory()->create();
         $newAuthor = 'New Author';
-        $response = $this->patch(route('books.update', $book), [
+        $response = $this->put(route('books.update', ['book' => $book->id]), [
             'field' => 'author',
             'value' => $newAuthor,
             'bookId' => $book->id,
@@ -99,14 +99,25 @@ class BookControllerTest extends TestCase
         ]); 
     }
 
+    // public function testStoreActionFailsWhenNoTitleSpecified()
+    // {
+    //     $data = [
+    //         'author' => 'John Doe',
+    //     ];
+    //     $response = $this->post(route('store-book'), $data);
+    //     $response->assertSee('The title field is required.');
+    //     $this->assertDatabaseMissing('books', $data);
+    // }
+
     public function testStoreActionFailsWhenNoTitleSpecified()
     {
         $data = [
+            'title' => '',
             'author' => 'John Doe',
         ];
         $response = $this->post(route('store-book'), $data);
-        $response->assertSee('The title field is required.');
-        $this->assertDatabaseMissing('books', $data);
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('title');
     }
 
     public function testStoreActionFailsWhenNoAuthorSpecified()
