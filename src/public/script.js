@@ -86,18 +86,15 @@ $('.editable-cell').click(function () {
     const bookId = cell.data('id');
     const field = cell.data('field');
     const currentValue = cell.text();
-    
-    // Prompt the user for a new value
     const newValue = prompt(`Edit ${field}:`, currentValue);
     
     if (newValue !== null && newValue !== currentValue) {
-        // Check if the new value is empty
+
         if (newValue.trim() === '') {
             alert('Value cannot be left blank');
-            return; // Do not proceed with the update
+            return; 
         }
 
-        // Proceed with the update if the new value is not empty
         updateBookField(bookId, field, newValue);
     }
 });
