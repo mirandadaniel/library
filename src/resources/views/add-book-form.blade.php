@@ -48,6 +48,7 @@
                 </td>
                 <td>
                     <div class="editable-cell" data-field="author" data-id="{{ $book->id }}">{{ $book->author }}</div>
+                    <!-- <div class="validation-error" style="color: red; display: none;">Cannot be left blank</div> -->
                 </td>
                 <td>
                     <form method="POST" action="{{ route('books.destroy', ['book' => $book->id]) }}">
