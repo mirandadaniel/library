@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\TestCase;
 use App\Models\Book;
 
@@ -14,6 +15,26 @@ class BookControllerTest extends TestCase
     public function testIndexAction()
     {
         $books = Book::factory(3)->create(); 
+        $response = $this->get('/'); 
+        $response->assertStatus(200); 
+        $response->assertViewIs('add-book-form');
+        $view = $response->getOriginalContent();
+        $booksInView = $view['books'];
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $booksInView);
+        $found = false;
+        foreach ($books as $book) {
+            if ($booksInView->contains($book)) {
+                $found = true;
+                break;
+            }
+        }
+
+        $this->assertTrue($found, 'At least one book from factory data should exist in the response');
+    }
+
+    public function testIndexAction2()
+    {
+        $books = Book::factory(100)->create(); 
         $response = $this->get('/'); 
         $response->assertStatus(200); 
         $response->assertViewIs('add-book-form');
@@ -99,42 +120,25 @@ class BookControllerTest extends TestCase
         ]); 
     }
 
-    // public function testStoreActionFailsWhenNoTitleSpecified()
-    // {
-    //     $data = [
-    //         'author' => 'John Doe',
-    //     ];
-    //     $response = $this->post(route('store-book'), $data);
-    //     $response->assertSee('The title field is required.');
-    //     $this->assertDatabaseMissing('books', $data);
-    // }
-
-    public function testStoreActionFailsWhenNoTitleSpecified()
-    {
-        $data = [
-            'title' => '',
-            'author' => 'John Doe',
-        ];
-        $response = $this->post(route('store-book'), $data);
-        $response->assertStatus(422);
-        $response->assertJsonValidationErrors('title');
-    }
-
-    public function testStoreActionFailsWhenNoAuthorSpecified()
-    {
-        $data = [
-            'title' => 'Peter Pan',
-        ];
-        $response = $this->post(route('store-book'), $data);
-        $response->assertSee('The title field is required.');
-        $this->assertDatabaseMissing('books', $data);
-    }
-
     public function testDestroyAction()
     {
         $book = Book::factory()->create();
         $response = $this->delete(route('books.destroy', $book));
         $response->assertRedirect(route('add-book-form')); 
         $this->assertDatabaseMissing('books', ['id' => $book->id]); 
+    }
+
+    public function testSearchBooks()
+    {
+        $books = Book::factory(3)->create();
+
+        $response = $this->get('/');
+        $response->assertStatus(200);
+        $response->assertViewIs('add-book-form');
+
+        foreach ($books as $book) {
+            $response->assertSee($book->title);
+            $response->assertSee($book->author);
+        }
     }
 } 

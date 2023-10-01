@@ -15,15 +15,17 @@
         "laravel/tinker": "^2.5",
         "league/flysystem-aws-s3-v3": "*",
         "maatwebsite/excel": "^3.1",
-        "spatie/laravel-export": "^0.3.11"
+        "spatie/laravel-export": "^0.3.11",
+        "php-webdriver/webdriver-manager": "2.13.0"
     },
     "require-dev": {
         "filp/whoops": "^2.0",
         "fzaninotto/faker": "^1.4",
+        "heroku/heroku-buildpack-php": "*",
+        "laravel/dusk": "^6.25",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^5.0",
-        "phpunit/phpunit": "^9.0",
-        "heroku/heroku-buildpack-php": "*"
+        "phpunit/phpunit": "^9.0"
     },
     "config": {
         "optimize-autoloader": true,

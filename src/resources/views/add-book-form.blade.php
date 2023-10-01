@@ -26,7 +26,6 @@
             </form>
         </div>
     </div>
-
     <div class="input-group mb-3" style="margin-top: 20px;">
       <input type="text" id="search" class="form-control" placeholder="Search for Title or Author...">
     </div>

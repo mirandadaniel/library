@@ -19,15 +19,15 @@ class BookController extends Controller
         return view('add-book-form', ['books' => $books, 'sortDirection' => $sortDirection]);
     }
 
-    
     public function store(Request $request)
     {
         $post = new Book;
         $post->title = $request->title;
         $post->author = $request->author;
         $post->save();
-        return redirect()->route('add-book-form')->with('status', 'Book Data Has Been inserted');
+        return redirect()->route('add-book-form')->with('status', 'Book data has been inserted');
     }
+
     public function edit(Book $book)
     {
         return view('edit', compact('book'));
