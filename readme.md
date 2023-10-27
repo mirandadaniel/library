@@ -1,1 +1,1 @@
-A simple library project using PHP
+A simple library project using PHP.
